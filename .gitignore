@@ -12,14 +12,25 @@
 secrets/
 
 # SSH private/public key files
+.ssh/
 *.pem
 *.key
 *.pub
+*.ppk
+*.p12
+*.pfx
 id_rsa
 id_rsa.*
 id_ed25519
 id_ed25519.*
 authorized_keys
+known_hosts
+
+# Shell and interactive command history
+.bash_history
+.zsh_history
+.python_history
+.lesshst
 
 # Raw evidence and backups
 evidence/raw/

@@ -1,0 +1,16 @@
+=== SSH HARDENING RESULT ===
+
+[Effective SSH Settings]
+maxauthtries 3
+permitrootlogin no
+pubkeyauthentication yes
+passwordauthentication no
+kbdinteractiveauthentication no
+x11forwarding no
+permitemptypasswords no
+
+[SSH Service Status]
+active
+
+[Recent Authentication]
+Sep 26 01:41:27 securitylab sshd-session[76595]: Accepted publickey for shinyoung from <MAC_UTM_IP> port <EPHEMERAL_PORT> ssh2: ED25519 <REDACTED_PUBLIC_KEY>

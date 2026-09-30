@@ -1,0 +1,7 @@
+=== SSH EFFECTIVE SECURITY SETTINGS ===
+maxauthtries 6
+permitrootlogin prohibit-password
+pubkeyauthentication yes
+passwordauthentication yes
+x11forwarding yes
+permitemptypasswords no

@@ -1,0 +1,43 @@
+=== UFW STATUS AFTER HARDENING ===
+
+[Firewall Policy and Rules]
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    <UTM_PRIVATE_SUBNET>       # SSH from UTM local network
+22/tcp on tailscale0       ALLOW IN    Anywhere                   # SSH through Tailscale
+41641/udp                  ALLOW IN    Anywhere                   # Tailscale direct connection
+80/tcp                     ALLOW IN    <UTM_PRIVATE_SUBNET>       # HTTP from UTM local network
+80/tcp on tailscale0       ALLOW IN    Anywhere                   # HTTP through Tailscale
+22/tcp (v6) on tailscale0  ALLOW IN    Anywhere (v6)              # SSH through Tailscale
+41641/udp (v6)             ALLOW IN    Anywhere (v6)              # Tailscale direct connection
+80/tcp (v6) on tailscale0  ALLOW IN    Anywhere (v6)              # HTTP through Tailscale
+
+
+[Listening Ports]
+Netid State  Recv-Q Send-Q               Local Address:Port  Peer Address:PortProcess
+udp   UNCONN 0      0                       127.0.0.54:53         0.0.0.0:*    users:(("systemd-resolve",pid=562,fd=18))
+udp   UNCONN 0      0                    127.0.0.53%lo:53         0.0.0.0:*    users:(("systemd-resolve",pid=562,fd=16))
+udp   UNCONN 0      0              <UBUNTU_PRIVATE_IP>%enp0s1:68  0.0.0.0:*    users:(("systemd-network",pid=769,fd=33))
+udp   UNCONN 0      0                        127.0.0.1:323        0.0.0.0:*    users:(("chronyd",pid=1065,fd=4))
+udp   UNCONN 0      0                          0.0.0.0:41641      0.0.0.0:*    users:(("tailscaled",pid=976,fd=20))
+udp   UNCONN 0      0                            [::1]:323           [::]:*    users:(("chronyd",pid=1065,fd=5))
+udp   UNCONN 0      0                             [::]:41641         [::]:*    users:(("tailscaled",pid=976,fd=19))
+tcp   LISTEN 0      4096                    127.0.0.54:53         0.0.0.0:*    users:(("systemd-resolve",pid=562,fd=19))
+tcp   LISTEN 0      4096                 127.0.0.53%lo:53         0.0.0.0:*    users:(("systemd-resolve",pid=562,fd=17))
+tcp   LISTEN 0      4096                       0.0.0.0:22         0.0.0.0:*    users:(("sshd",pid=1559,fd=3),("systemd",pid=1,fd=233))
+tcp   LISTEN 0      511                        0.0.0.0:80         0.0.0.0:*    users:(("nginx",pid=18317,fd=5),("nginx",pid=18316,fd=5),("nginx",pid=18313,fd=5))
+tcp   LISTEN 0      4096 <TAILSCALE_SERVER_IP>:<EPHEMERAL_PORT>   0.0.0.0:*    users:(("tailscaled",pid=976,fd=22))
+tcp   LISTEN 0      4096 [<TAILSCALE_SERVER_IP>]:<EPHEMERAL_PORT>    [::]:*    users:(("tailscaled",pid=976,fd=23))
+tcp   LISTEN 0      4096                          [::]:22            [::]:*    users:(("sshd",pid=1559,fd=4),("systemd",pid=1,fd=234))
+tcp   LISTEN 0      511                           [::]:80            [::]:*    users:(("nginx",pid=18317,fd=6),("nginx",pid=18316,fd=6),("nginx",pid=18313,fd=6))
+
+[Connectivity Test Results]
+Mac SSH through UTM network: PASS
+Mac HTTP through UTM network: PASS
+Pixel SSH through Tailscale: PASS
+Pixel HTTP through Tailscale: PASS
