@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# Environment variables and secrets
+.env
+.env.*
+secrets/
+
+# SSH private/public key files
+*.pem
+*.key
+*.pub
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+authorized_keys
+
+# Raw evidence and backups
+evidence/raw/
+backups/
+*.bak
+*.backup
+*.old
+
+# Temporary files
+*.tmp
+*~
