@@ -1,0 +1,13 @@
+=== ACCOUNT GROUP HARDENING RESULT ===
+
+[Remove Unused LXD Group Membership]
+$ sudo gpasswd -d <REDACTED_USER> lxd
+Removing user <REDACTED_USER> from group lxd
+
+[LXD Group Database]
+$ getent group lxd
+lxd:x:101:
+
+[New SSH Session Group Check]
+$ id <REDACTED_USER>
+uid=1000(<REDACTED_USER>) gid=1000(<REDACTED_USER>) groups=1000(<REDACTED_USER>),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users)

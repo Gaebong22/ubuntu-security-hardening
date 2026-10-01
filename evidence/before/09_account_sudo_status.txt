@@ -1,0 +1,29 @@
+=== ACCOUNT AND SUDO STATUS BEFORE HARDENING ===
+
+[Regular Login Users]
+$ awk -F: '$3 >= 1000 && $3 < 65534 {print $1, $3, $6, $7}' /etc/passwd
+<REDACTED_USER> 1000 /home/<REDACTED_USER> /bin/bash
+
+[Root Password Status]
+$ sudo passwd -S root
+root L 2026-08-26 0 99999 7 -1
+
+[Administrator Password Status]
+$ sudo passwd -S <REDACTED_USER>
+<REDACTED_USER> P 2026-09-11 0 99999 7 -1
+
+[Administrator Groups]
+$ id <REDACTED_USER>
+uid=1000(<REDACTED_USER>) gid=1000(<REDACTED_USER>) groups=1000(<REDACTED_USER>),4(adm),24(cdrom),27(sudo),30(dip),46(plugdev),100(users),101(lxd)
+
+[Sudo Privileges]
+$ sudo -l -U <REDACTED_USER>
+User <REDACTED_USER> may run the following commands on securitylab:
+    (ALL : ALL) ALL
+
+[LXD Installation Check]
+$ dpkg -S /usr/sbin/lxc
+lxd-installer: /usr/sbin/lxc
+
+$ snap list lxd
+error: no matching snaps installed

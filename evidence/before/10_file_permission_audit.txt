@@ -1,0 +1,40 @@
+=== CRITICAL FILE AND DIRECTORY PERMISSION AUDIT ===
+
+[Account Files]
+$ sudo stat -c '%a %U:%G %n' /etc/passwd /etc/shadow /etc/group /etc/gshadow
+644 root:root /etc/passwd
+640 root:shadow /etc/shadow
+644 root:root /etc/group
+640 root:shadow /etc/gshadow
+
+[Privilege and SSH Configuration]
+$ sudo stat -c '%a %U:%G %n' /etc/sudoers /etc/ssh/sshd_config
+440 root:root /etc/sudoers
+644 root:root /etc/ssh/sshd_config
+
+[Configuration Directories]
+$ sudo stat -c '%a %U:%G %n' /etc/sudoers.d /etc/ssh/sshd_config.d
+755 root:root /etc/sudoers.d
+755 root:root /etc/ssh/sshd_config.d
+
+[Configuration Drop-in Files]
+$ sudo find /etc/sudoers.d /etc/ssh/sshd_config.d -maxdepth 1 -type f -printf '%m %u:%g %p\n'
+440 root:root /etc/sudoers.d/README
+600 root:root /etc/ssh/sshd_config.d/50-cloud-init.conf
+644 root:root /etc/ssh/sshd_config.d/00-hardening.conf
+
+[User Directories]
+$ stat -c '%a %U:%G %n' "$HOME" "$HOME/.ssh"
+750 <REDACTED_USER>:<REDACTED_USER> /home/<REDACTED_USER>
+700 <REDACTED_USER>:<REDACTED_USER> /home/<REDACTED_USER>/.ssh
+
+[SSH Authorization File Metadata]
+600 <REDACTED_USER>:<REDACTED_USER>
+
+[Temporary Directories]
+$ stat -c '%a %U:%G %n' /tmp /var/tmp
+1777 root:root /tmp
+1777 root:root /var/tmp
+
+[World-writable Files under /etc]
+$ sudo find /etc -xdev -type f -perm -0002 -print
