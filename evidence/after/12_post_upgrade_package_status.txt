@@ -1,0 +1,14 @@
+=== POST-UPGRADE PACKAGE STATUS ===
+
+[Upgradable Packages]
+$ apt list --upgradable
+
+[Reboot Required]
+$ if [ -e /var/run/reboot-required ]; then echo "reboot required"; else echo "reboot not required"; fi
+reboot not required
+
+[DPKG Audit]
+$ sudo dpkg --audit
+
+[Held Packages]
+$ apt-mark showhold

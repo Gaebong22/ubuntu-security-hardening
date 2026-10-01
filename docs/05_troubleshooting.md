@@ -49,3 +49,24 @@ Termius는 저장된 호스트를 선택하는 순간 SSH 연결을 수행합니
 - 테스트 트래픽을 보낸 시각
 - 검색한 로그의 시간 범위
 - `SRC`, `DST`, `PROTO`, `SPT`, `DPT` 필드
+
+## APT 저장소 시간 오류
+
+### 증상
+
+`sudo apt update` 실행 중 저장소의 Release file이 아직 유효하지 않다는 오류가 발생했다.
+
+```text
+Release file is not valid yet
+```
+
+### 원인과 해결
+
+Ubuntu 서버 시간이 실제 시간보다 약 2일 느려 저장소 메타데이터의 유효 시간을 통과하지 못했다. Chrony로 시스템 시간을 즉시 보정한 뒤 패키지 목록을 다시 갱신했다.
+
+```bash
+sudo chronyc makestep
+sudo apt update
+```
+
+시간 보정 후 `apt update`가 정상 완료되고 업데이트 가능한 패키지 목록이 조회됐다.

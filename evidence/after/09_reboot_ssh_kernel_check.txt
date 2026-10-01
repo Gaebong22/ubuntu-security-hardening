@@ -1,0 +1,13 @@
+=== POST-REBOOT SSH AND KERNEL VERIFICATION ===
+
+[Mac SSH Command]
+ssh -o IdentitiesOnly=yes -i <SSH_PRIVATE_KEY_PATH> <REDACTED_USER>@<UBUNTU_PRIVATE_IP>
+
+[SSH Login Result]
+Welcome to Ubuntu 26.04.1 LTS (GNU/Linux 7.0.0-34-generic aarch64)
+
+0 updates can be applied immediately.
+
+[Running Kernel]
+$ uname -r
+7.0.0-34-generic

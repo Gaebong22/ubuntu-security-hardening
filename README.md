@@ -80,12 +80,13 @@ README.md           프로젝트 개요
 - [트러블슈팅](docs/05_troubleshooting.md)
 - [SSH 하드닝](docs/06_ssh_hardening.md)
 - [UFW 하드닝](docs/07_ufw_hardening.md)
+- [시스템 업데이트 및 패치 관리](docs/08_patch_management.md)
 
 ## 다음 단계
 
 | 작업 | 상태 |
 | --- | --- |
-| 시스템 업데이트 및 자동 보안 업데이트 점검 | 작업 예정 |
+| 시스템 업데이트 및 자동 보안 업데이트 점검 | 완료 |
 | 계정·sudo·파일 권한·실행 서비스 점검 | 작업 예정 |
 | Lynis 변경 전후 진단 및 추가 조치 | 작업 예정 |
 | Baseline·Security Audit Bash 스크립트 구현 | 작업 예정 |
