@@ -1,0 +1,127 @@
+=== LYNIS REMEDIATION AND REASSESSMENT RESULT ===
+
+[Patch Validation]
+$ uname -r
+7.0.0-38-generic
+
+$ apt list --upgradable
+(no output)
+
+[sudo Policy Directory]
+$ sudo stat -c '%a %U:%G %n' /etc/sudoers.d
+750 root:root /etc/sudoers.d
+
+$ sudo visudo -c
+/etc/sudoers: parsed OK
+
+[Effective SSH Settings]
+$ sudo sshd -T | grep -E '^(allowtcpforwarding|allowagentforwarding|clientaliveinterval|clientalivecountmax|maxsessions|tcpkeepalive|loglevel) '
+maxsessions 2
+clientaliveinterval 300
+clientalivecountmax 2
+tcpkeepalive no
+allowtcpforwarding no
+allowagentforwarding no
+loglevel VERBOSE
+
+$ sudo sshd -t
+(no output)
+
+$ systemctl is-active ssh.service
+active
+
+[Kernel Hardening]
+$ sudo sysctl fs.protected_fifos fs.suid_dumpable kernel.kptr_restrict kernel.sysrq net.core.bpf_jit_harden
+fs.protected_fifos = 2
+fs.suid_dumpable = 2
+kernel.kptr_restrict = 2
+kernel.sysrq = 0
+net.core.bpf_jit_harden = 2
+
+[Apport Conflict Analysis]
+$ grep -n -E 'suid_dumpable|core_pattern' /usr/share/apport/apport
+168:    # (this matters when suid_dumpable is enabled)
+688:        "kernel/core_pattern",
+691:    write_to_proc_sys("fs/suid_dumpable", "2")
+699:    write_to_proc_sys("fs/suid_dumpable", "0")
+700:    write_to_proc_sys("kernel/core_pattern", "core")
+
+$ systemctl is-enabled apport.service; systemctl is-active apport.service
+disabled
+inactive
+
+$ sysctl fs.suid_dumpable
+fs.suid_dumpable = 0
+
+[Post-Reboot Apport Persistence]
+$ systemctl is-enabled apport.service; systemctl is-active apport.service
+disabled
+inactive
+
+$ sysctl fs.suid_dumpable
+fs.suid_dumpable = 0
+
+[Unused Network Protocol Modules]
+$ lsmod | grep -E '^(dccp|sctp|rds|tipc)[[:space:]]'
+(no output)
+
+[Password and Default Permission Policy]
+$ sudo chage -l <REDACTED_USER>
+Password expires                    : Sep 11, 2027
+Password inactive                   : never
+Account expires                     : never
+Minimum number of days between password change : 1
+Maximum number of days between password change : 365
+Number of days of warning before password expires : 14
+
+$ printf '%s\n' 'password' | pwscore
+Password quality check failed:
+ The password is shorter than 14 characters
+
+$ umask
+0027
+
+$ stat -c '%a %U:%G %n' /tmp/securitylab-umask-test
+640 <REDACTED_USER>:<REDACTED_USER> /tmp/securitylab-umask-test
+
+[Post-Reboot Service Validation]
+$ systemctl is-active ssh.service nginx.service tailscaled.service auditd.service systemd-journald.service rsyslog.service
+active
+active
+active
+active
+active
+active
+
+$ sudo auditctl -l | wc -l
+10
+
+$ sudo auditctl -s
+enabled 1
+failure 1
+backlog_limit 8192
+lost 0
+backlog 0
+loginuid_immutable 0 unlocked
+
+$ curl -I http://127.0.0.1
+HTTP/1.1 200 OK
+Server: nginx/1.28.3 (Ubuntu)
+
+[Lynis Reassessment]
+$ sudo lynis audit system --quick
+
+Great, no warnings
+
+Suggestions (29)
+
+Hardening index : 74
+Tests performed : 267
+Plugins enabled : 1
+
+[Lynis Kernel Checks]
+- fs.protected_fifos (exp: 2) [ OK ]
+- fs.suid_dumpable (exp: 0) [ OK ]
+- kernel.kptr_restrict (exp: 2) [ OK ]
+- kernel.sysrq (exp: 0) [ OK ]
+- net.core.bpf_jit_harden (exp: 2) [ OK ]

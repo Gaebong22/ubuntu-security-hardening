@@ -66,6 +66,18 @@ Ubuntu Server의 초기 보안 상태를 진단하고 SSH, UFW, 패치, 계정 �
 
 세부 규칙과 테스트는 [시스템 로그와 감사 설정](docs/12_log_audit_hardening.md)에 정리했습니다.
 
+### Lynis 진단 기반 추가 하드닝
+
+- package와 kernel 보안 업데이트 적용 후 잔여 업데이트 0개 확인
+- `/etc/sudoers.d` 권한 강화와 `visudo -c` 검증
+- SSH forwarding·session 제한 및 상세 인증 로그 적용
+- kernel 정보 노출·core dump·SysRq·BPF JIT 정책 강화
+- 미사용 DCCP·SCTP·RDS·TIPC module 차단
+- 비밀번호 품질·사용 기간과 기본 `umask 0027` 적용
+- Lynis warning `1 → 0`, suggestion `45 → 29`, hardening index `61 → 74`
+
+적용 항목과 보류 항목의 판단 근거는 [Lynis 진단과 추가 하드닝](docs/13_lynis_assessment.md)에 정리했습니다.
+
 ## 테스트 결과 요약
 
 | 테스트 | 결과 | 상태 |
@@ -78,6 +90,11 @@ Ubuntu Server의 초기 보안 상태를 진단하고 SSH, UFW, 패치, 계정 �
 | UFW 차단 로그 | `UFW BLOCK`, `DPT=8080` 확인 | PASS |
 | audit 설정 변경 감지 | 파일 생성 행위와 원래 로그인 사용자 기록 | PASS |
 | audit 재부팅 유지 | 규칙 10개 자동 적재, `lost 0` | PASS |
+| SSH 추가 정책 | effective configuration과 새 공개키 연결 확인 | PASS |
+| 비밀번호 품질 | 14자 미만 시험 문자열 거부 | PASS |
+| 기본 파일 권한 | 새 SSH session에서 시험 파일 `640` 확인 | PASS |
+| Apport 충돌 해결 | 재부팅 후 `disabled`·`inactive`, `fs.suid_dumpable=0` | PASS |
+| Lynis 재진단 | warning 0개, hardening index 74 | PASS |
 
 SSH 유효 설정, 인증 거부, UFW 정책과 TCP 8080 차단은 `evidence/`의 실제 출력으로 확인했다. Mac과 Pixel의 일부 연결 결과는 현재 `PASS` 요약으로 정리되어 있으며 클라이언트 원시 출력은 보강 예정이다.
 
@@ -110,6 +127,7 @@ README.md           프로젝트 개요
 - [중요 파일과 디렉터리 권한 점검](docs/10_file_permission_audit.md)
 - [실행 서비스와 열린 포트 점검](docs/11_service_port_audit.md)
 - [시스템 로그와 감사 설정](docs/12_log_audit_hardening.md)
+- [Lynis 진단과 추가 하드닝](docs/13_lynis_assessment.md)
 
 ## 다음 단계
 
@@ -120,6 +138,6 @@ README.md           프로젝트 개요
 | 중요 파일과 디렉터리 권한 점검 | 완료 |
 | 실행 서비스와 열린 포트 점검 | 완료 |
 | 시스템 로그와 감사 설정 점검 | 완료 |
-| Lynis 변경 전후 진단 및 추가 조치 | 작업 예정 |
+| Lynis 변경 전후 진단 및 추가 조치 | 완료 |
 | Baseline·Security Audit Bash 스크립트 구현 | 작업 예정 |
 | 최종 하드닝 보고서 작성 | 작업 예정 |

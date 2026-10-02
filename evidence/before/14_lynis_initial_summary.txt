@@ -1,0 +1,24 @@
+=== LYNIS INITIAL AUDIT SUMMARY ===
+
+$ sudo lynis audit system --quick
+
+[Scan Context]
+Program version:           3.1.6
+Operating system name:     Ubuntu
+Operating system version:  26.04
+Kernel version:            7.0.0
+Hardware platform:         aarch64
+Report file:               /var/log/lynis-report.dat
+
+[Results]
+Warnings (1):
+! Found one or more vulnerable packages. [PKGS-7392]
+
+Suggestions (45)
+
+Hardening index : 61
+Tests performed : 267
+Plugins enabled : 1
+
+[Primary Finding]
+* Update your system with apt-get update, apt-get upgrade, apt-get dist-upgrade and/or unattended-upgrades [PKGS-7392]
