@@ -1,0 +1,76 @@
+=== LOGGING AND AUDIT HARDENING RESULT ===
+
+[Audit Package Installation]
+$ sudo apt install auditd audispd-plugins
+Installing: audispd-plugins auditd
+Installing dependencies: libauparse0t64 libauplugin1
+Upgrading: 0, Installing: 4, Removing: 0, Not Upgrading: 0
+
+[Audit Service]
+$ systemctl is-enabled auditd.service
+enabled
+
+$ systemctl is-active auditd.service
+active
+
+[Audit Rules]
+$ sudo auditctl -l | wc -l
+10
+
+Configured keys:
+- identity
+- sudo_policy
+- sshd_config
+- firewall_config
+- audit_config
+
+[Functional Test]
+$ sudo touch /etc/audit/audit-test.tmp
+
+$ sudo ausearch -k audit_config -f /etc/audit/audit-test.tmp -ts recent -i
+type=PROCTITLE: proctitle=touch /etc/audit/audit-test.tmp
+type=PATH: name=/etc/audit/audit-test.tmp nametype=CREATE
+type=CWD: cwd=/home/<REDACTED_USER>
+type=SYSCALL: arch=aarch64 syscall=openat success=yes auid=<REDACTED_USER> uid=root comm=touch key=audit_config
+
+$ sudo rm /etc/audit/audit-test.tmp
+
+[Audit Log Permissions]
+$ sudo stat -c '%a %U:%G %n' /var/log/audit /var/log/audit/audit.log
+750 root:adm /var/log/audit
+640 root:adm /var/log/audit/audit.log
+
+[Journald Retention Drop-in]
+$ sudo cat /etc/systemd/journald.conf.d/10-retention.conf
+[Journal]
+Storage=persistent
+Compress=yes
+SystemMaxUse=200M
+SystemKeepFree=1G
+MaxRetentionSec=30day
+
+[Effective Journal Configuration]
+$ systemd-analyze cat-config systemd/journald.conf | grep -E '^(Storage|Compress|SystemMaxUse|SystemKeepFree|MaxRetentionSec|ForwardToSyslog)='
+Storage=persistent
+Compress=yes
+SystemMaxUse=200M
+SystemKeepFree=1G
+MaxRetentionSec=30day
+ForwardToSyslog=yes
+
+[Post-Reboot Verification]
+$ systemctl is-active systemd-journald.service rsyslog.service auditd.service
+active
+active
+active
+
+$ sudo auditctl -l | wc -l
+10
+
+$ sudo auditctl -s
+enabled 1
+failure 1
+backlog_limit 8192
+lost 0
+backlog 0
+loginuid_immutable 0 unlocked

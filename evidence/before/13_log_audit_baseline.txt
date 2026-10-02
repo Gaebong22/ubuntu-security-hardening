@@ -1,0 +1,46 @@
+=== LOGGING AND AUDIT BASELINE ===
+
+[Logging Services]
+$ systemctl is-active systemd-journald.service rsyslog.service
+active
+active
+
+[Persistent Journal]
+$ sudo journalctl --list-boots
+IDX FIRST ENTRY                  LAST ENTRY
+ -4 Fri 2026-09-11 16:35:22 UTC Sat 2026-09-12 13:30:30 UTC
+ -3 Mon 2026-09-14 14:36:48 UTC Thu 2026-10-01 15:03:15 UTC
+ -2 Thu 2026-10-01 15:03:22 UTC Fri 2026-10-02 03:55:25 UTC
+ -1 Fri 2026-10-02 03:55:31 UTC Fri 2026-10-02 05:19:42 UTC
+  0 Fri 2026-10-02 05:19:48 UTC Fri 2026-10-02 05:41:06 UTC
+
+$ sudo journalctl --disk-usage
+Archived and active journals take up 36.3M in the file system.
+
+[Journal Permissions]
+$ sudo stat -c '%a %U:%G %n' /var/log/journal
+2755 root:systemd-journal /var/log/journal
+
+$ sudo find /var/log/journal -type f -name '*.journal*' -printf '%m %u:%g\n' | sort -u
+640 root:systemd-journal
+
+[Journal Configuration]
+$ systemd-analyze cat-config systemd/journald.conf
+[Journal]
+#Storage=persistent
+#Compress=yes
+#SystemMaxUse=
+#SystemKeepFree=
+#MaxRetentionSec=0
+
+[Rsyslog Authentication Routing]
+$ sudo grep -R 'auth,authpriv' /etc/rsyslog.conf /etc/rsyslog.d
+/etc/rsyslog.d/50-default.conf:auth,authpriv.*        /var/log/auth.log
+/etc/rsyslog.d/50-default.conf:*.*;auth,authpriv.none -/var/log/syslog
+
+$ sudo stat -c '%a %U:%G %n' /var/log/auth.log
+640 syslog:adm /var/log/auth.log
+
+[Audit Framework]
+$ command -v auditctl || echo "auditctl not installed"
+auditctl not installed

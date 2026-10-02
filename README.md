@@ -55,6 +55,17 @@ Ubuntu Server의 초기 보안 상태를 진단하고 SSH, UFW, 패치, 계정 �
 
 판단 근거와 재부팅 검증은 [실행 서비스와 열린 포트 점검](docs/11_service_port_audit.md)에 정리했습니다.
 
+### 로그와 감사
+
+- journald 영구 저장, 압축, 200MB·30일 보존 정책 적용
+- rsyslog 인증 로그 분리와 logrotate 정책 확인
+- `auditd`, `audispd-plugins` 설치 및 자동 시작 확인
+- 계정·sudo·SSH·UFW·audit 설정 변경 규칙 10개 적용
+- 실제 파일 생성 이벤트 기록 및 `ausearch` 조회 성공
+- 재부팅 후 audit 규칙 자동 적재와 이벤트 손실 없음 확인
+
+세부 규칙과 테스트는 [시스템 로그와 감사 설정](docs/12_log_audit_hardening.md)에 정리했습니다.
+
 ## 테스트 결과 요약
 
 | 테스트 | 결과 | 상태 |
@@ -65,13 +76,15 @@ Ubuntu Server의 초기 보안 상태를 진단하고 SSH, UFW, 패치, 계정 �
 | Mac/Pixel nginx HTTP | 페이지 표시 | PASS |
 | TCP 8080 접근 | `Operation timed out` | PASS |
 | UFW 차단 로그 | `UFW BLOCK`, `DPT=8080` 확인 | PASS |
+| audit 설정 변경 감지 | 파일 생성 행위와 원래 로그인 사용자 기록 | PASS |
+| audit 재부팅 유지 | 규칙 10개 자동 적재, `lost 0` | PASS |
 
 SSH 유효 설정, 인증 거부, UFW 정책과 TCP 8080 차단은 `evidence/`의 실제 출력으로 확인했다. Mac과 Pixel의 일부 연결 결과는 현재 `PASS` 요약으로 정리되어 있으며 클라이언트 원시 출력은 보강 예정이다.
 
 ## 저장소 구조
 
 ```text
-config-examples/   SSH·UFW 설정 예시
+config-examples/   SSH·UFW·journald·auditd 설정 예시
 docs/              프로젝트 설계, 환경, 테스트 및 트러블슈팅 문서
 evidence/
   before/          하드닝 적용 전 실제 명령 출력
@@ -96,6 +109,7 @@ README.md           프로젝트 개요
 - [사용자·계정·sudo 권한 점검](docs/09_account_sudo_audit.md)
 - [중요 파일과 디렉터리 권한 점검](docs/10_file_permission_audit.md)
 - [실행 서비스와 열린 포트 점검](docs/11_service_port_audit.md)
+- [시스템 로그와 감사 설정](docs/12_log_audit_hardening.md)
 
 ## 다음 단계
 
@@ -105,6 +119,7 @@ README.md           프로젝트 개요
 | 계정·sudo 권한 점검 | 완료 |
 | 중요 파일과 디렉터리 권한 점검 | 완료 |
 | 실행 서비스와 열린 포트 점검 | 완료 |
+| 시스템 로그와 감사 설정 점검 | 완료 |
 | Lynis 변경 전후 진단 및 추가 조치 | 작업 예정 |
 | Baseline·Security Audit Bash 스크립트 구현 | 작업 예정 |
 | 최종 하드닝 보고서 작성 | 작업 예정 |

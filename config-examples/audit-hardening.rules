@@ -1,0 +1,17 @@
+## Account and identity files
+-a always,exit -F arch=b64 -F path=/etc/passwd -F perm=wa -F key=identity
+-a always,exit -F arch=b64 -F path=/etc/group -F perm=wa -F key=identity
+-a always,exit -F arch=b64 -F path=/etc/shadow -F perm=wa -F key=identity
+-a always,exit -F arch=b64 -F path=/etc/gshadow -F perm=wa -F key=identity
+
+## Privilege policy
+-a always,exit -F arch=b64 -F path=/etc/sudoers -F perm=wa -F key=sudo_policy
+-a always,exit -F arch=b64 -F dir=/etc/sudoers.d/ -F perm=wa -F key=sudo_policy
+
+## SSH server configuration
+-a always,exit -F arch=b64 -F path=/etc/ssh/sshd_config -F perm=wa -F key=sshd_config
+-a always,exit -F arch=b64 -F dir=/etc/ssh/sshd_config.d/ -F perm=wa -F key=sshd_config
+
+## Firewall and audit configuration
+-a always,exit -F arch=b64 -F dir=/etc/ufw/ -F perm=wa -F key=firewall_config
+-a always,exit -F arch=b64 -F dir=/etc/audit/ -F perm=wa -F key=audit_config
