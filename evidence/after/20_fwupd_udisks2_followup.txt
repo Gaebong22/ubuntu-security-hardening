@@ -1,0 +1,51 @@
+=== FWUPD AND UDISKS2 FOLLOW-UP ===
+
+[Activation Source]
+$ sudo journalctl -b --since "2026-10-02 04:35:50" --until "2026-10-02 04:36:15" --no-pager
+Oct 02 04:36:03 securitylab systemd[1]: Starting fwupd-refresh.service - Refresh fwupd metadata and update motd...
+Oct 02 04:36:03 securitylab dbus-daemon[984]: [system] Activating via systemd: service name='org.freedesktop.fwupd' unit='fwupd.service' requested by ':1.14' (uid=985 pid=1627 comm="/usr/bin/fwupdmgr refresh" label="unconfined")
+Oct 02 04:36:03 securitylab dbus-daemon[984]: [system] Activating via systemd: service name='org.freedesktop.UDisks2' unit='udisks2.service' requested by ':1.15' (uid=0 pid=1636 comm="/usr/libexec/fwupd/fwupd" label="unconfined")
+Oct 02 04:36:03 securitylab systemd[1]: Started udisks2.service - Disk Manager.
+Oct 02 04:36:03 securitylab systemd[1]: Started fwupd.service - Firmware update daemon.
+
+[Firmware Device Review]
+$ sudo fwupdmgr get-devices
+QEMU QEMU Virtual Machine
+└─Unknown Device:
+      Vendor: PNP:RHT
+
+$ sudo fwupdmgr get-updates
+No updatable devices
+
+[Before]
+$ systemctl is-enabled fwupd-refresh.timer fwupd.service
+enabled
+static
+
+[Action]
+$ sudo systemctl disable --now fwupd-refresh.timer
+Removed '/etc/systemd/system/timers.target.wants/fwupd-refresh.timer'.
+
+$ sudo systemctl stop fwupd.service udisks2.service
+(no output)
+
+[Immediate Verification]
+$ systemctl is-active fwupd.service udisks2.service
+inactive
+inactive
+
+$ systemctl is-enabled fwupd-refresh.timer
+disabled
+
+[Post-Reboot Verification]
+$ systemctl is-active ModemManager.service multipathd.service udisks2.service fwupd.service
+inactive
+inactive
+inactive
+inactive
+
+$ systemctl is-enabled ModemManager.service multipathd.service udisks2.service fwupd-refresh.timer
+disabled
+disabled
+disabled
+disabled

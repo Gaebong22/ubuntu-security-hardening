@@ -1,0 +1,21 @@
+=== RUNNING SYSTEMD SERVICES AFTER SERVICE HARDENING ===
+
+$ systemctl --type=service --state=running --no-pager --no-legend
+chrony.service                  loaded active running chrony, an NTP client/server
+cron.service                    loaded active running Regular background program processing daemon
+dbus.service                    loaded active running D-Bus System Message Bus
+getty@tty1.service              loaded active running Getty on tty1
+networkd-dispatcher.service     loaded active running Dispatcher daemon for systemd-networkd
+nginx.service                   loaded active running A high performance web server and a reverse proxy server
+polkit.service                  loaded active running Authorization Manager
+rsyslog.service                 loaded active running System Logging Service
+serial-getty@ttyAMA0.service    loaded active running Serial Getty on ttyAMA0
+ssh.service                     loaded active running OpenBSD Secure Shell server
+systemd-journald.service        loaded active running Journal Service
+systemd-logind.service          loaded active running User Login Management
+systemd-networkd.service        loaded active running Network Management
+systemd-resolved.service        loaded active running Network Name Resolution
+systemd-udevd.service           loaded active running Rule-based Manager for Device Events and Files
+tailscaled.service              loaded active running Tailscale node agent
+unattended-upgrades.service     loaded active running Unattended Upgrades Shutdown
+user@1000.service               loaded active running User Manager for UID 1000

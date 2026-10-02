@@ -1,2 +1,2 @@
-Sep 16 04:31:04 securitylab sshd-session[27379]: Accepted password for shinyoung from <REDACTED_IP> port <EPHEMERAL_PORT> ssh2
-Sep 17 09:35:54 securitylab sshd-session[51096]: Accepted password for shinyoung from <REDACTED_IP> port <EPHEMERAL_PORT> ssh2
+Sep 16 04:31:04 securitylab sshd-session[27379]: Accepted password for <REDACTED_USER> from <REDACTED_IP> port <EPHEMERAL_PORT> ssh2
+Sep 17 09:35:54 securitylab sshd-session[51096]: Accepted password for <REDACTED_USER> from <REDACTED_IP> port <EPHEMERAL_PORT> ssh2

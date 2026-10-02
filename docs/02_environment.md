@@ -24,8 +24,8 @@ Pixel/Termius ── Tailscale ──> Ubuntu Server
 
 ## 작업 위치 구분
 
-- Mac 프롬프트 예시: `syhong@... %`
-- Ubuntu 프롬프트 예시: `shinyoung@securitylab:~$`
+- Mac 프롬프트 예시: `<REDACTED_USER>@... %`
+- Ubuntu 프롬프트 예시: `<REDACTED_USER>@securitylab:~$`
 - Ubuntu 프로젝트 경로: `~/linux-security-hardening`
 
 명령 실행 전 프롬프트와 `hostname`, `pwd`로 현재 시스템을 구분했다.

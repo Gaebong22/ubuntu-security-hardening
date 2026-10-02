@@ -1,0 +1,45 @@
+=== UDISKS2 HARDENING RESULT ===
+
+[Before]
+$ systemctl is-enabled udisks2.service
+enabled
+
+$ systemctl status udisks2.service --no-pager
+● udisks2.service - Disk Manager
+     Loaded: loaded (/usr/lib/systemd/system/udisks2.service; enabled; preset: enabled)
+     Active: active (running)
+
+[Reverse Dependency]
+$ systemctl list-dependencies --reverse udisks2.service --no-pager
+udisks2.service
+● └─graphical.target
+
+[Display Manager]
+$ systemctl is-active display-manager.service
+inactive
+
+[Action]
+$ sudo systemctl disable --now udisks2.service
+Removed '/etc/systemd/system/graphical.target.wants/udisks2.service'.
+
+[After]
+$ systemctl is-enabled udisks2.service
+disabled
+
+$ systemctl is-active udisks2.service
+inactive
+
+[Reboot Follow-up]
+$ systemctl is-active ModemManager.service multipathd.service udisks2.service
+inactive
+inactive
+active
+
+$ systemctl status udisks2.service --no-pager
+● udisks2.service - Disk Manager
+     Loaded: loaded (/usr/lib/systemd/system/udisks2.service; disabled; preset: enabled)
+     Active: active (running)
+
+udisks2 was activated on demand after reboot even though the unit was disabled.
+The activation source and final remediation are recorded in
+evidence/after/20_fwupd_udisks2_followup.txt.

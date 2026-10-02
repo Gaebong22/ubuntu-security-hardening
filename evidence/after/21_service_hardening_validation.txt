@@ -1,0 +1,45 @@
+=== SERVICE HARDENING POST-REBOOT VALIDATION ===
+
+[SSH Reconnection]
+$ ssh -o IdentitiesOnly=yes -i <SSH_PRIVATE_KEY_PATH> <REDACTED_USER>@<UBUNTU_PRIVATE_IP>
+Welcome to Ubuntu 26.04.1 LTS (GNU/Linux 7.0.0-34-generic aarch64)
+0 updates can be applied immediately.
+
+[Required Services]
+$ systemctl is-active ssh.service nginx.service tailscaled.service serial-getty@ttyAMA0.service
+active
+active
+active
+active
+
+[Disabled Services]
+$ systemctl is-active ModemManager.service multipathd.service udisks2.service fwupd.service
+inactive
+inactive
+inactive
+inactive
+
+[Firewall]
+$ sudo ufw status verbose
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    <UTM_PRIVATE_SUBNET>    # SSH from UTM local network
+22/tcp on tailscale0       ALLOW IN    Anywhere                # SSH through Tailscale
+41641/udp                  ALLOW IN    Anywhere                # Tailscale direct connection
+80/tcp                     ALLOW IN    <UTM_PRIVATE_SUBNET>    # HTTP from UTM local network
+80/tcp on tailscale0       ALLOW IN    Anywhere                # HTTP through Tailscale
+22/tcp (v6) on tailscale0  ALLOW IN    Anywhere (v6)           # SSH through Tailscale
+41641/udp (v6)             ALLOW IN    Anywhere (v6)           # Tailscale direct connection
+80/tcp (v6) on tailscale0  ALLOW IN    Anywhere (v6)           # HTTP through Tailscale
+
+[HTTP]
+$ curl -I http://127.0.0.1
+HTTP/1.1 200 OK
+Server: nginx/1.28.3 (Ubuntu)
+Content-Type: text/html
+Content-Length: 615
+Connection: keep-alive

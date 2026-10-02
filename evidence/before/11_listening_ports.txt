@@ -1,0 +1,19 @@
+=== LISTENING PORTS AND PROCESSES ===
+
+$ sudo ss -tulpn
+Netid State  Recv-Q Send-Q Local Address:Port                         Peer Address:Port Process
+udp   UNCONN 0      0      0.0.0.0:41641                             0.0.0.0:*         users:(("tailscaled",pid=1021,fd=20))
+udp   UNCONN 0      0      127.0.0.54:53                             0.0.0.0:*         users:(("systemd-resolve",pid=561,fd=18))
+udp   UNCONN 0      0      127.0.0.53%lo:53                          0.0.0.0:*         users:(("systemd-resolve",pid=561,fd=16))
+udp   UNCONN 0      0      <UBUNTU_PRIVATE_IP>%enp0s1:68             0.0.0.0:*         users:(("systemd-network",pid=939,fd=33))
+udp   UNCONN 0      0      127.0.0.1:323                             0.0.0.0:*         users:(("chronyd",pid=1102,fd=4))
+udp   UNCONN 0      0      [::]:41641                                [::]:*            users:(("tailscaled",pid=1021,fd=19))
+udp   UNCONN 0      0      [::1]:323                                 [::]:*            users:(("chronyd",pid=1102,fd=5))
+tcp   LISTEN 0      4096   127.0.0.53%lo:53                          0.0.0.0:*         users:(("systemd-resolve",pid=561,fd=17))
+tcp   LISTEN 0      4096   127.0.0.54:53                             0.0.0.0:*         users:(("systemd-resolve",pid=561,fd=19))
+tcp   LISTEN 0      4096   <TAILSCALE_SERVER_IP>:<EPHEMERAL_PORT>    0.0.0.0:*         users:(("tailscaled",pid=1021,fd=22))
+tcp   LISTEN 0      4096   0.0.0.0:22                                0.0.0.0:*         users:(("sshd",pid=1515,fd=3),("systemd",pid=1,fd=105))
+tcp   LISTEN 0      511    0.0.0.0:80                                0.0.0.0:*         users:(("nginx",pid=1070,fd=5),("nginx",pid=1069,fd=5),("nginx",pid=1068,fd=5))
+tcp   LISTEN 0      4096   [<TAILSCALE_SERVER_IP>]:<EPHEMERAL_PORT>   [::]:*            users:(("tailscaled",pid=1021,fd=23))
+tcp   LISTEN 0      4096   [::]:22                                   [::]:*            users:(("sshd",pid=1515,fd=4),("systemd",pid=1,fd=106))
+tcp   LISTEN 0      511    [::]:80                                   [::]:*            users:(("nginx",pid=1070,fd=6),("nginx",pid=1069,fd=6),("nginx",pid=1068,fd=6))

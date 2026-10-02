@@ -20,8 +20,8 @@ Mac에서 Ubuntu 프로젝트 경로나 `sudo sshd` 명령을 실행해 파일 �
 
 명령을 실행한 시스템이 달랐습니다. 프롬프트, `hostname`, `pwd`를 확인하여 Mac과 Ubuntu를 구분합니다.
 
-- Mac: `syhong@... %`
-- Ubuntu: `shinyoung@securitylab:~$`
+- Mac: `<REDACTED_USER>@... %`
+- Ubuntu: `<REDACTED_USER>@securitylab:~$`
 
 ## Pixel SSH 접속 방식 혼동
 

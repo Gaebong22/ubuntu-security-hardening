@@ -1,0 +1,21 @@
+=== MODEMMANAGER HARDENING RESULT ===
+
+[Detected Modems]
+$ mmcli -L
+No modems were found
+
+[Before]
+$ systemctl is-enabled ModemManager.service
+enabled
+
+[Action]
+$ sudo systemctl disable --now ModemManager.service
+Removed '/etc/systemd/system/dbus-org.freedesktop.ModemManager1.service'.
+Removed '/etc/systemd/system/multi-user.target.wants/ModemManager.service'.
+
+[After]
+$ systemctl is-enabled ModemManager.service
+disabled
+
+$ systemctl is-active ModemManager.service
+inactive

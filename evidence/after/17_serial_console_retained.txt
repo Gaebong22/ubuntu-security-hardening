@@ -1,0 +1,19 @@
+=== SERIAL CONSOLE REVIEW RESULT ===
+
+[Service State]
+$ systemctl status serial-getty@ttyAMA0.service --no-pager
+● serial-getty@ttyAMA0.service - Serial Getty on ttyAMA0
+     Loaded: loaded (/usr/lib/systemd/system/serial-getty@.service; enabled-runtime; preset: enabled)
+     Active: active (running)
+
+[Kernel Command Line Console]
+$ grep -o 'console=[^ ]*' /proc/cmdline
+console=tty0
+
+[Active Kernel Consoles]
+$ cat /sys/class/tty/console/active
+ttyAMA0 tty0
+
+[Decision]
+serial-getty@ttyAMA0.service was retained because ttyAMA0 is an active kernel console
+and provides a local recovery path when remote SSH access is unavailable.

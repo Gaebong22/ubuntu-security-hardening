@@ -13,4 +13,4 @@ permitemptypasswords no
 active
 
 [Recent Authentication]
-Sep 26 01:41:27 securitylab sshd-session[76595]: Accepted publickey for shinyoung from <MAC_UTM_IP> port <EPHEMERAL_PORT> ssh2: ED25519 <REDACTED_PUBLIC_KEY>
+Sep 26 01:41:27 securitylab sshd-session[76595]: Accepted publickey for <REDACTED_USER> from <MAC_UTM_IP> port <EPHEMERAL_PORT> ssh2: ED25519 <REDACTED_PUBLIC_KEY>

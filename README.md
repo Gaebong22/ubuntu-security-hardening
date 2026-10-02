@@ -1,11 +1,12 @@
 # Ubuntu Security Hardening
 
-Ubuntu Server의 초기 보안 상태를 진단하고 SSH와 UFW를 중심으로 보안 설정을 강화했습니다. 또한 설정 적용 이 후 정상 접근과 비정상 접근 차단을 함께 검증한 보안 엔지니어링 포트폴리오입니다.
+Ubuntu Server의 초기 보안 상태를 진단하고 SSH, UFW, 패치, 계정 권한과 실행 서비스를 단계적으로 강화했습니다. 설정 적용 이후 정상 접근과 비정상 접근 차단을 함께 검증한 보안 엔지니어링 포트폴리오입니다.
 
 ## 프로젝트 목표
 
 - 변경 전 상태 수집 및 위험 요소 식별
 - SSH 인증 정책과 UFW 방화벽 정책 강화
+- package update, 계정 권한과 실행 service 점검
 - 정상 기능과 비정상 접근 차단 검증
 - 설정·테스트·로그의 변경 전후 비교
 - 반복 가능한 Linux 보안 점검 자동화
@@ -42,6 +43,17 @@ Ubuntu Server의 초기 보안 상태를 진단하고 SSH와 UFW를 중심으로
 - TCP 8080 접근 차단 및 `UFW BLOCK` 로그 확인
 
 자세한 정책과 테스트는 [UFW 하드닝 문서](docs/07_ufw_hardening.md)를 참고하세요.
+
+### 서비스 최소화
+
+- listening port와 담당 프로세스 확인
+- modem이 없는 환경에서 `ModemManager` 비활성화
+- 단일 가상 disk 환경에서 `multipathd` 비활성화
+- 업데이트 가능한 firmware 장치가 없는 UTM 게스트에서 `fwupd` 예약 작업과 `udisks2` 상시 실행 제거
+- UTM 복구 경로인 `serial-getty@ttyAMA0` 유지
+- 재부팅 후 SSH, nginx, Tailscale, UFW 정상 동작 확인
+
+판단 근거와 재부팅 검증은 [실행 서비스와 열린 포트 점검](docs/11_service_port_audit.md)에 정리했습니다.
 
 ## 테스트 결과 요약
 
@@ -83,6 +95,7 @@ README.md           프로젝트 개요
 - [시스템 업데이트 및 패치 관리](docs/08_patch_management.md)
 - [사용자·계정·sudo 권한 점검](docs/09_account_sudo_audit.md)
 - [중요 파일과 디렉터리 권한 점검](docs/10_file_permission_audit.md)
+- [실행 서비스와 열린 포트 점검](docs/11_service_port_audit.md)
 
 ## 다음 단계
 
@@ -91,7 +104,7 @@ README.md           프로젝트 개요
 | 시스템 업데이트 및 자동 보안 업데이트 점검 | 완료 |
 | 계정·sudo 권한 점검 | 완료 |
 | 중요 파일과 디렉터리 권한 점검 | 완료 |
-| 실행 서비스와 열린 포트 점검 | 작업 예정 |
+| 실행 서비스와 열린 포트 점검 | 완료 |
 | Lynis 변경 전후 진단 및 추가 조치 | 작업 예정 |
 | Baseline·Security Audit Bash 스크립트 구현 | 작업 예정 |
 | 최종 하드닝 보고서 작성 | 작업 예정 |

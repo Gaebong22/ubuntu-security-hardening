@@ -1,0 +1,35 @@
+=== MULTIPATHD HARDENING RESULT ===
+
+[Detected Multipath Devices]
+$ sudo multipath -ll
+(no output)
+
+[Block Devices]
+$ lsblk -o NAME,TYPE,FSTYPE,MOUNTPOINTS
+NAME                       TYPE FSTYPE      MOUNTPOINTS
+sr0                        rom
+vda                        disk
+├─vda1                     part vfat        /boot/efi
+├─vda2                     part ext4        /boot
+└─vda3                     part LVM2_member
+  └─ubuntu--vg-ubuntu--lv  lvm  ext4        /
+
+[Before]
+$ systemctl is-enabled multipathd.service multipathd.socket
+enabled
+static
+
+$ systemctl is-active multipathd.service multipathd.socket
+active
+inactive
+
+[Action]
+$ sudo systemctl disable --now multipathd.service
+Removed '/etc/systemd/system/sysinit.target.wants/multipathd.service'.
+
+[After]
+$ systemctl is-enabled multipathd.service
+disabled
+
+$ systemctl is-active multipathd.service
+inactive
