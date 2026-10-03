@@ -13,7 +13,7 @@ set -o pipefail
 export LC_ALL=C
 export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-SCRIPT_VERSION="1.0.0"
+SCRIPT_VERSION="1.1.0"
 
 section() {
     printf '\n=== %s ===\n' "$1"
@@ -193,8 +193,10 @@ fi
 
 section "SSH SERVER"
 if command_exists systemctl; then
-    printf 'ssh_enabled=%s\n' "$(systemctl is-enabled ssh.service 2>/dev/null || true)"
-    printf 'ssh_active=%s\n' "$(systemctl is-active ssh.service 2>/dev/null || true)"
+    printf 'ssh_service_enabled=%s\n' "$(systemctl is-enabled ssh.service 2>/dev/null || true)"
+    printf 'ssh_service_active=%s\n' "$(systemctl is-active ssh.service 2>/dev/null || true)"
+    printf 'ssh_socket_enabled=%s\n' "$(systemctl is-enabled ssh.socket 2>/dev/null || true)"
+    printf 'ssh_socket_active=%s\n' "$(systemctl is-active ssh.socket 2>/dev/null || true)"
 fi
 
 if command_exists sshd; then

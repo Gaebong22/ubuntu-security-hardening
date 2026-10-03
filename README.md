@@ -78,6 +78,16 @@ Ubuntu Server의 초기 보안 상태를 진단하고 SSH, UFW, 패치, 계정 �
 
 적용 항목과 보류 항목의 판단 근거는 [Lynis 진단과 추가 하드닝](docs/13_lynis_assessment.md)에 정리했습니다.
 
+### Baseline 자동 수집
+
+- OS, patch, 계정, 권한, SSH, UFW, port와 service 상태를 한 번에 수집
+- journald·auditd와 kernel security 설정 확인
+- IP, MAC 주소와 사용자 홈 경로 자동 치환
+- 설정을 변경하지 않는 읽기 전용 방식
+- Ubuntu Server 실제 실행과 공개 전 민감정보 검사 완료
+
+수집 범위와 실행·검증 방법은 [보안 Baseline 자동 수집](docs/14_baseline_automation.md)에 정리했습니다.
+
 ## 테스트 결과 요약
 
 | 테스트 | 결과 | 상태 |
@@ -111,7 +121,7 @@ scripts/           Baseline 수집 및 보안 점검 자동화
 README.md           프로젝트 개요
 ```
 
-`reports/`의 최종 보고서와 `scripts/`의 자동 진단 도구는 작업 예정이다.
+`scripts/collect_baseline.sh`는 구현과 실제 실행을 마쳤다. 정책 준수 여부를 PASS·FAIL로 판정하는 Security Audit 도구와 `reports/`의 최종 보고서는 작업 예정이다.
 
 ## 문서
 
@@ -128,6 +138,7 @@ README.md           프로젝트 개요
 - [실행 서비스와 열린 포트 점검](docs/11_service_port_audit.md)
 - [시스템 로그와 감사 설정](docs/12_log_audit_hardening.md)
 - [Lynis 진단과 추가 하드닝](docs/13_lynis_assessment.md)
+- [보안 Baseline 자동 수집](docs/14_baseline_automation.md)
 
 ## 다음 단계
 
@@ -139,5 +150,6 @@ README.md           프로젝트 개요
 | 실행 서비스와 열린 포트 점검 | 완료 |
 | 시스템 로그와 감사 설정 점검 | 완료 |
 | Lynis 변경 전후 진단 및 추가 조치 | 완료 |
-| Baseline·Security Audit Bash 스크립트 구현 | 작업 예정 |
+| Baseline 수집 Bash 스크립트 구현 및 실제 실행 | 완료 |
+| Security Audit Bash 스크립트 구현 | 작업 예정 |
 | 최종 하드닝 보고서 작성 | 작업 예정 |

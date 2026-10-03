@@ -1,0 +1,160 @@
+
+=== COLLECTION METADATA ===
+collector=collect_baseline.sh
+collector_version=1.1.0
+collection_time_utc=2026-10-03T14:09:52Z
+configuration_changes=none
+privileged_collection=available
+
+=== OPERATING SYSTEM ===
+PRETTY_NAME="Ubuntu 26.04.1 LTS"
+VERSION_ID="26.04"
+VERSION_CODENAME=resolute
+kernel=7.0.0-38-generic
+architecture=aarch64
+virtualization=qemu
+
+=== PATCH STATUS ===
+upgradable_packages=none
+held_packages=none
+dpkg_audit=clean
+reboot_required=no
+apt-daily.timer enabled=enabled active=active
+apt-daily-upgrade.timer enabled=enabled active=active
+unattended-upgrades.service enabled=enabled active=active
+
+=== LOCAL ACCOUNTS ===
+regular_user_1 uid=1000 gid=1000 home=<REDACTED_HOME> shell=/bin/bash
+regular_user_count=1
+home mode=750 uid=1000 gid=1000 path=<REDACTED_HOME>
+.ssh mode=700 uid=1000 gid=1000 path=<REDACTED_HOME>/.ssh
+root L 2026-08-26 0 99999 7 -1
+sudo_member_count=1
+
+=== CRITICAL FILE PERMISSIONS ===
+644 root:root /etc/passwd
+640 root:shadow /etc/shadow
+644 root:root /etc/group
+640 root:shadow /etc/gshadow
+440 root:root /etc/sudoers
+750 root:root /etc/sudoers.d
+644 root:root /etc/ssh/sshd_config
+755 root:root /etc/ssh/sshd_config.d
+world_writable_files_under_etc=0
+
+=== SSH SERVER ===
+ssh_service_enabled=disabled
+ssh_service_active=active
+ssh_socket_enabled=enabled
+ssh_socket_active=active
+maxauthtries 3
+maxsessions 2
+clientaliveinterval 300
+clientalivecountmax 2
+permitrootlogin no
+pubkeyauthentication yes
+passwordauthentication no
+kbdinteractiveauthentication no
+x11forwarding no
+tcpkeepalive no
+permitemptypasswords no
+allowtcpforwarding no
+allowagentforwarding no
+loglevel VERBOSE
+
+=== FIREWALL ===
+Status: active
+Logging: on (low)
+Default: deny (incoming), allow (outgoing), disabled (routed)
+New profiles: skip
+
+To                         Action      From
+--                         ------      ----
+22/tcp                     ALLOW IN    <REDACTED_IP>            # SSH from UTM local network
+22/tcp on tailscale0       ALLOW IN    Anywhere                   # SSH through Tailscale
+41641/udp                  ALLOW IN    Anywhere                   # Tailscale direct connection
+80/tcp                     ALLOW IN    <REDACTED_IP>            # HTTP from UTM local network
+80/tcp on tailscale0       ALLOW IN    Anywhere                   # HTTP through Tailscale
+22/tcp (v6) on tailscale0  ALLOW IN    Anywhere (v6)              # SSH through Tailscale
+41641/udp (v6)             ALLOW IN    Anywhere (v6)              # Tailscale direct connection
+80/tcp (v6) on tailscale0  ALLOW IN    Anywhere (v6)              # HTTP through Tailscale
+
+
+=== LISTENING PORTS ===
+udp state=UNCONN port=53 process=users:(("systemd-resolve",pid=558,fd=18))
+udp state=UNCONN port=53 process=users:(("systemd-resolve",pid=558,fd=16))
+udp state=UNCONN port=68 process=users:(("systemd-network",pid=914,fd=36))
+udp state=UNCONN port=323 process=users:(("chronyd",pid=1123,fd=4))
+udp state=UNCONN port=41641 process=users:(("tailscaled",pid=1045,fd=20))
+udp state=UNCONN port=323 process=users:(("chronyd",pid=1123,fd=5))
+udp state=UNCONN port=41641 process=users:(("tailscaled",pid=1045,fd=19))
+tcp state=LISTEN port=47151 process=users:(("tailscaled",pid=1045,fd=24))
+tcp state=LISTEN port=53 process=users:(("systemd-resolve",pid=558,fd=17))
+tcp state=LISTEN port=53 process=users:(("systemd-resolve",pid=558,fd=19))
+tcp state=LISTEN port=22 process=users:(("sshd",pid=1508,fd=3),("systemd",pid=1,fd=98))
+tcp state=LISTEN port=80 process=users:(("nginx",pid=1081,fd=5),("nginx",pid=1079,fd=5),("nginx",pid=1078,fd=5))
+tcp state=LISTEN port=61489 process=users:(("tailscaled",pid=1045,fd=25))
+tcp state=LISTEN port=22 process=users:(("sshd",pid=1508,fd=4),("systemd",pid=1,fd=99))
+tcp state=LISTEN port=80 process=users:(("nginx",pid=1081,fd=6),("nginx",pid=1079,fd=6),("nginx",pid=1078,fd=6))
+
+=== RUNNING SERVICES ===
+auditd.service active running
+chrony.service active running
+cron.service active running
+dbus.service active running
+getty@tty1.service active running
+networkd-dispatcher.service active running
+nginx.service active running
+polkit.service active running
+rsyslog.service active running
+serial-getty@ttyAMA0.service active running
+ssh.service active running
+systemd-journald.service active running
+systemd-logind.service active running
+systemd-networkd.service active running
+systemd-resolved.service active running
+systemd-udevd.service active running
+tailscaled.service active running
+unattended-upgrades.service active running
+user@1000.service active running
+
+=== LOGGING AND AUDIT ===
+systemd-journald.service active=active enabled=static
+rsyslog.service active=active enabled=enabled
+auditd.service active=active enabled=enabled
+Archived and active journals take up 44.6M in the file system.
+journal_boot_count=10
+enabled 1
+failure 1
+pid 755
+rate_limit 0
+backlog_limit 8192
+lost 0
+backlog 0
+backlog_wait_time 60000
+backlog_wait_time_actual 0
+loginuid_immutable 0 unlocked
+audit_rule_count=10
+
+=== KERNEL SECURITY SETTINGS ===
+fs.protected_fifos = 2
+fs.suid_dumpable = 0
+kernel.kptr_restrict = 2
+kernel.sysrq = 0
+kernel.unprivileged_bpf_disabled = 2
+net.core.bpf_jit_harden = 2
+
+=== UNCOMMON NETWORK PROTOCOL MODULES ===
+loaded=none
+dccp: install /bin/false 
+sctp: install /bin/false 
+rds: install /bin/false 
+tipc: install /bin/false 
+
+=== SECURITY TOOL VERSIONS ===
+lynis=3.1.6
+ufw 0.36.2
+
+=== COLLECTION RESULT ===
+collection_complete=yes
+review_required_before_publication=yes
