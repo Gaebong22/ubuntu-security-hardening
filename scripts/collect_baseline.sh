@@ -134,8 +134,8 @@ if [[ -r /etc/passwd ]]; then
         END { printf "regular_user_count=%d\n", count + 0 }
     ' /etc/passwd
 
-    while IFS=: read -r _name uid gid home _shell; do
-        if (( uid >= 1000 && uid < 65534 )); then
+    while IFS=: read -r _name _password uid gid _gecos home _shell; do
+        if [[ "$uid" =~ ^[0-9]+$ ]] && (( uid >= 1000 && uid < 65534 )); then
             if [[ -d "$home" ]]; then
                 stat -c 'home mode=%a uid=%u gid=%g path=<REDACTED_HOME>' "$home" 2>/dev/null || true
             fi
