@@ -37,7 +37,7 @@ all other inbound   -> deny
 - 미허용 TCP 8080 연결은 `Operation timed out`
 - Ubuntu 커널 로그에서 `UFW BLOCK`과 `DPT=8080` 확인
 
-`evidence/after/03_ufw_hardening_result.txt`에는 UFW 기본 정책·허용 규칙·리스닝 포트와 연결 테스트 결과를 저장했다. `evidence/after/04_ufw_block_test.txt`에는 TCP 8080 테스트 명령과 `UFW BLOCK` 로그를 기록했다. Mac/Pixel의 SSH·HTTP 클라이언트 원시 출력은 보강 예정이다.
+`evidence/after/03_ufw_hardening_result.txt`에는 UFW 기본 정책·허용 규칙·리스닝 포트와 연결 테스트 결과를 저장했다. `evidence/after/04_ufw_block_test.txt`에는 TCP 8080 테스트 명령과 `UFW BLOCK` 로그를 기록했다. Mac/Pixel 연결 성공은 PASS 요약으로 남아 있고, 일부 client 원시 출력은 보존되지 않았다.
 
 ## 로그에서 확인할 필드
 

@@ -116,7 +116,7 @@ Ubuntu Server의 초기 보안 상태를 진단하고 SSH, UFW, 패치, 계정 �
 | Lynis 재진단 | warning 0개, hardening index 74 | PASS |
 | 보안 정책 자동 점검 | 67개 검사, FAIL·WARN 0개 | PASS |
 
-SSH 유효 설정, 인증 거부, UFW 정책과 TCP 8080 차단은 `evidence/`의 실제 출력으로 확인했다. Mac과 Pixel의 일부 연결 결과는 현재 `PASS` 요약으로 정리되어 있으며 클라이언트 원시 출력은 보강 예정이다.
+SSH 유효 설정, 인증 거부, UFW 정책과 TCP 8080 차단은 `evidence/`의 실제 출력으로 확인했다. Mac과 Pixel의 일부 연결 성공 결과는 당시 작성한 `PASS` 요약이며, 이 증거 범위는 최종 보고서의 한계에 명시했다.
 
 ## 저장소 구조
 
@@ -131,7 +131,7 @@ scripts/           Baseline 수집 및 보안 점검 자동화
 README.md           프로젝트 개요
 ```
 
-Baseline 수집과 보안 정책 자동 점검 도구는 구현 및 실제 실행을 마쳤다. `reports/`의 최종 하드닝 보고서는 작업 예정이다.
+Baseline 수집과 보안 정책 자동 점검 도구를 실제 Ubuntu Server에서 검증했다. 전체 과정과 결과는 [최종 하드닝 보고서](reports/final_hardening_report.md)에 정리했다.
 
 ## 문서
 
@@ -150,8 +150,9 @@ Baseline 수집과 보안 정책 자동 점검 도구는 구현 및 실제 실�
 - [Lynis 진단과 추가 하드닝](docs/13_lynis_assessment.md)
 - [보안 Baseline 자동 수집](docs/14_baseline_automation.md)
 - [보안 정책 자동 점검](docs/15_security_audit_automation.md)
+- [최종 하드닝 보고서](reports/final_hardening_report.md)
 
-## 다음 단계
+## 완료 현황
 
 | 작업 | 상태 |
 | --- | --- |
@@ -163,4 +164,4 @@ Baseline 수집과 보안 정책 자동 점검 도구는 구현 및 실제 실�
 | Lynis 변경 전후 진단 및 추가 조치 | 완료 |
 | Baseline 수집 Bash 스크립트 구현 및 실제 실행 | 완료 |
 | Security Audit Bash 스크립트 구현 및 실제 실행 | 완료 |
-| 최종 하드닝 보고서 작성 | 작업 예정 |
+| 최종 하드닝 보고서 작성 | 완료 |

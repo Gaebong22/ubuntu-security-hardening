@@ -40,7 +40,7 @@ X11Forwarding no
 
 Mac과 Pixel의 공개키 접속, 비밀번호 인증 거부, `sshd -t` 검사와 서비스 상태 확인을 완료했다. 비밀번호 인증 테스트 결과는 `Permission denied (publickey)`였다.
 
-`evidence/after/01_ssh_hardening_result.txt`에는 유효 SSH 설정, 서비스 `active` 상태와 공개키 인증 성공 로그를 저장했다. `evidence/after/02_password_auth_disabled.txt`에는 비밀번호 전용 인증 명령과 거부 결과를 기록했다. `sshd -t` 실행 결과와 Pixel 연결의 개별 인증 로그는 보강 예정이다.
+`evidence/after/01_ssh_hardening_result.txt`에는 유효 SSH 설정, 서비스 `active` 상태와 공개키 인증 성공 로그를 저장했다. `evidence/after/02_password_auth_disabled.txt`에는 비밀번호 전용 인증 명령과 거부 결과를 기록했다. Pixel 연결 성공은 당시 작성한 PASS 요약이며 개별 client 인증 로그는 남아 있지 않다.
 
 ## 확인해야 할 evidence
 

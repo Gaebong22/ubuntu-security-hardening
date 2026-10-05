@@ -20,7 +20,7 @@
 
 ## 증거 상태
 
-SSH 유효 설정, 공개키 인증 로그, 비밀번호 인증 거부, UFW 정책과 TCP 8080 차단 로그를 evidence로 확인했다. Mac/Pixel의 SSH·HTTP 연결 성공은 현재 `PASS` 요약으로 기록되어 있으며 클라이언트 원시 출력은 보강 예정이다.
+SSH 유효 설정, 공개키 인증 로그, 비밀번호 인증 거부, UFW 정책과 TCP 8080 차단 로그를 evidence로 확인했다. Mac/Pixel의 SSH·HTTP 연결 성공은 당시 작성한 `PASS` 요약이며, client 원시 출력이 없는 항목은 최종 보고서에 증거 범위의 한계로 기록했다.
 
 ## evidence 작성 기준
 
