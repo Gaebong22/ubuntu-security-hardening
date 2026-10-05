@@ -1,0 +1,92 @@
+Ubuntu Security Audit
+script_version=1.0.0
+audit_time_utc=2026-10-05T03:35:12Z
+configuration_changes=none
+[PASS] privileged checks available
+
+=== PATCH MANAGEMENT ===
+[PASS] no upgradable packages
+[PASS] dpkg database is consistent
+[PASS] reboot is not pending
+[PASS] automatic upgrade timer enabled
+[PASS] unattended-upgrades active
+
+=== ACCOUNTS AND PERMISSIONS ===
+[PASS] root account is locked
+[PASS] lxd group has no members
+[PASS] /etc/passwd permission
+[PASS] /etc/shadow permission
+[PASS] /etc/group permission
+[PASS] /etc/gshadow permission
+[PASS] /etc/sudoers permission
+[PASS] /etc/sudoers.d permission
+[PASS] no world-writable files under /etc
+
+=== SSH ===
+[PASS] SSH service or socket is active
+[PASS] SSH root login disabled
+[PASS] SSH public-key authentication enabled
+[PASS] SSH password authentication disabled
+[PASS] SSH keyboard-interactive authentication disabled
+[PASS] SSH empty passwords disabled
+[PASS] SSH authentication attempts limited
+[PASS] SSH X11 forwarding disabled
+[PASS] SSH TCP forwarding disabled
+[PASS] SSH agent forwarding disabled
+[PASS] SSH session count limited
+[PASS] SSH verbose logging enabled
+
+=== FIREWALL AND SERVICES ===
+[PASS] UFW is active
+[PASS] UFW default policy is deny incoming and allow outgoing
+[PASS] nginx.service is active
+[PASS] tailscaled.service is active
+[PASS] auditd.service is active
+[PASS] systemd-journald.service is active
+[PASS] rsyslog.service is active
+[PASS] ModemManager.service is not active
+[PASS] multipathd.service is not active
+[PASS] udisks2.service is not active
+[PASS] apport.service is not active
+[PASS] fwupd refresh timer disabled
+
+=== LOGGING AND AUDIT ===
+[PASS] journald persistent storage enabled
+[PASS] journald compression enabled
+[PASS] journald disk limit configured
+[PASS] journald retention configured
+[PASS] Linux audit is enabled
+[PASS] Linux audit lost events
+[PASS] audit rules loaded (count=10)
+
+=== KERNEL AND ACCOUNT POLICY ===
+[PASS] protected FIFOs hardened
+[PASS] setuid core dumps disabled
+[PASS] kernel pointer restriction hardened
+[PASS] SysRq disabled
+[PASS] unprivileged BPF disabled
+[PASS] BPF JIT hardening enabled
+[PASS] password maximum age
+[PASS] password minimum age
+[PASS] password expiry warning
+[PASS] password hashing method
+[PASS] default umask
+[PASS] password minimum length
+[PASS] password class requirement
+[PASS] password quality applies to root
+[PASS] /etc/pam.d/common-session applies umask 0027
+[PASS] /etc/pam.d/common-session-noninteractive applies umask 0027
+
+=== UNCOMMON NETWORK PROTOCOLS ===
+[PASS] unused network protocol modules are not loaded
+[PASS] dccp load is blocked
+[PASS] sctp load is blocked
+[PASS] rds load is blocked
+[PASS] tipc load is blocked
+
+=== AUDIT SUMMARY ===
+total=67
+pass=67
+fail=0
+warn=0
+result=PASS

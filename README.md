@@ -88,6 +88,15 @@ Ubuntu Server의 초기 보안 상태를 진단하고 SSH, UFW, 패치, 계정 �
 
 수집 범위와 실행·검증 방법은 [보안 Baseline 자동 수집](docs/14_baseline_automation.md)에 정리했습니다.
 
+### 보안 정책 자동 점검
+
+- 프로젝트에서 적용한 정책을 67개 항목으로 자동 판정
+- 패치, 계정, 권한, SSH, UFW, service, audit, kernel 정책 검사
+- `PASS`, `FAIL`, `WARN`과 최종 요약 출력
+- Ubuntu Server 실제 실행 결과 67개 전체 PASS
+
+판정 기준과 결과 해석은 [보안 정책 자동 점검](docs/15_security_audit_automation.md)에 정리했습니다.
+
 ## 테스트 결과 요약
 
 | 테스트 | 결과 | 상태 |
@@ -105,6 +114,7 @@ Ubuntu Server의 초기 보안 상태를 진단하고 SSH, UFW, 패치, 계정 �
 | 기본 파일 권한 | 새 SSH session에서 시험 파일 `640` 확인 | PASS |
 | Apport 충돌 해결 | 재부팅 후 `disabled`·`inactive`, `fs.suid_dumpable=0` | PASS |
 | Lynis 재진단 | warning 0개, hardening index 74 | PASS |
+| 보안 정책 자동 점검 | 67개 검사, FAIL·WARN 0개 | PASS |
 
 SSH 유효 설정, 인증 거부, UFW 정책과 TCP 8080 차단은 `evidence/`의 실제 출력으로 확인했다. Mac과 Pixel의 일부 연결 결과는 현재 `PASS` 요약으로 정리되어 있으며 클라이언트 원시 출력은 보강 예정이다.
 
@@ -121,7 +131,7 @@ scripts/           Baseline 수집 및 보안 점검 자동화
 README.md           프로젝트 개요
 ```
 
-`scripts/collect_baseline.sh`는 구현과 실제 실행을 마쳤다. 정책 준수 여부를 PASS·FAIL로 판정하는 Security Audit 도구와 `reports/`의 최종 보고서는 작업 예정이다.
+Baseline 수집과 보안 정책 자동 점검 도구는 구현 및 실제 실행을 마쳤다. `reports/`의 최종 하드닝 보고서는 작업 예정이다.
 
 ## 문서
 
@@ -139,6 +149,7 @@ README.md           프로젝트 개요
 - [시스템 로그와 감사 설정](docs/12_log_audit_hardening.md)
 - [Lynis 진단과 추가 하드닝](docs/13_lynis_assessment.md)
 - [보안 Baseline 자동 수집](docs/14_baseline_automation.md)
+- [보안 정책 자동 점검](docs/15_security_audit_automation.md)
 
 ## 다음 단계
 
@@ -151,5 +162,5 @@ README.md           프로젝트 개요
 | 시스템 로그와 감사 설정 점검 | 완료 |
 | Lynis 변경 전후 진단 및 추가 조치 | 완료 |
 | Baseline 수집 Bash 스크립트 구현 및 실제 실행 | 완료 |
-| Security Audit Bash 스크립트 구현 | 작업 예정 |
+| Security Audit Bash 스크립트 구현 및 실제 실행 | 완료 |
 | 최종 하드닝 보고서 작성 | 작업 예정 |
